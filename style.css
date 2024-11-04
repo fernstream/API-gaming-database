@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+/* */
+body {
+  font-family: "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background-color: #060e0f;
+  color: #fff;
+}
+/* Navbar Styling */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #012021;
+  color: #ffffff;
+}
+
+.navbar-logo {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: #d1e8e2;
+}
+
+.menu {
+  list-style-type: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background-color: #012021e2;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+  border: solid 2px #fff;
+  z-index: 1;
+}
+
+.menu.active {
+  width: 250px;
+  gap: 20px;
+  padding: 20px;
+  position: fixed;
+  z-index: 1;
+}
+.menu a {
+  text-decoration: none;
+  color: #ffff;
+  font-size: 18px;
+}
+
+.menu li a.active,
+.menu li a:hover {
+  color: #0b6667;
+  transition: ease-in-out 0.1s;
+}
+
+/* Hamburger meny stil */
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.hamburger div {
+  width: 35px;
+  height: 3px;
+  background-color: #ffff;
+  margin: 4px;
+  transition: 0.3s;
+}
+
+.hamburger.active .bar1 {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+.hamburger.active .bar1 {
+  opacity: 0;
+}
+
+.hamburger.active .bar3 {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Game Container Card Styling */
+
+.game-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #fff;
+  width: 80vh;
+  height: 40vh;
+  margin: 8px;
+}
