@@ -39,6 +39,7 @@ body {
   font-size: 2em;
   text-decoration: none;
   color: #000000;
+  text-shadow: 1px 1px 1px rgba(14, 55, 72, 0.456);
 }
 
 .menu {
@@ -65,16 +66,24 @@ body {
   padding: 20px;
   position: fixed;
   z-index: 1;
+  /*   display: flex;
+  align-items: center; */
 }
 .menu a {
   text-decoration: none;
   color: #ffff;
   font-size: 1.7rem;
+  font-family: Oswald-VariableFont_wght;
+}
+
+.menu li {
+  margin-bottom: 25px;
 }
 
 .menu li a.active,
 .menu li a:hover {
-  color: #57def3;
+  text-shadow: 0 0 10px #187fc4, 0 0 20px #3d95dd, 0 0 30px #61aee0,
+    0 0 40px #1f6b9f, 0 0 50px #144566, 0 0 60px #67a6db, 0 0 70px #144566;
   transition: ease-in-out 0.1s;
 }
 
@@ -110,15 +119,20 @@ body {
   background: linear-gradient(45deg, #91919125, #000000);
   background-blend-mode: color-burn;
   text-align: center;
+  background-image: url(images/image_blackblue_dualshock.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
 }
 .hero-container h1 {
   font-family: Oswald-VariableFont_wght;
+  text-shadow: 1px 1px 2px rgba(41, 164, 213, 0.554);
 }
 
 .hero-container p {
   font-size: 1.2rem;
 }
-
 /* Game Container Card Styling */
 .card-wrapper {
   max-width: 1200px;
