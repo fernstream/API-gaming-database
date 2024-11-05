@@ -1,18 +1,45 @@
-// API anrop //
-
-// Skapa interface som beskriver vad för data som ska finnas i objeket. ex Interface city {id: string, name:string, population: number} //
 const apiKey = "059a654028274c3fae60d5570f66f862";
-async function fetchGames() {
+/* Min API-nyckel sparad i konstanten 'apiKey' */
+
+async function fetchFeaturedGames() {
+  const url = `https://api.rawg.io/api/games?key=${apiKey}&page_size=5&ordering=-id`;
   try {
-    const response = await fetch(`https://api.rawg.io/api/games?key=${apiKey}`);
-    const result = await response.json();
-    console.log(result);
-    return result;
-    // catch error //
+    const response = await fetch(url);
+    const data = await response.json();
+    const games = data.results;
+
+    const featuredContainer = document.getElementById("featured-games");
+    const gameTemplate = document.getElementById("game-template");
+
+    games.forEach((game) => {
+      // Itererar genom arrayen "games" från API:t med 'forEach'-funktionen.
+      const gameCard = gameTemplate.cloneNode(true);
+      gameCard.style.display = "block";
+      gameCard.removeAttribute("id"); // Tar bort ID-attributet för klonen eftersom ID:n ska vara unika
+
+      // Fyller data i klonade element
+      gameCard.querySelector(".game-name").textContent = game.name;
+      gameCard.querySelector(".game-image").src = game.background_image;
+      gameCard.querySelector(".game-image").alt = game.name;
+      gameCard.querySelector(
+        ".game-rating"
+      ).textContent = `Betyg: ${game.rating}`;
+      gameCard.querySelector(
+        ".game-meta"
+      ).textContent = `Metacritic: ${game.metacritic}`;
+      gameCard.querySelector(
+        ".game-release"
+      ).textContent = `Release date: ${game.released}`;
+
+      // Lägger till klonen i container-elementet
+      featuredContainer.appendChild(gameCard);
+    });
   } catch (error) {
-    console.error("Error - Ett fel inträffade", error);
+    console.error("Fel vid hämtning av utvalda spel:", error);
   }
 }
+
+fetchFeaturedGames();
 
 // Hamburger Navbar Menu Toggle Function //
 //.classList i kombination med toggle för att switcha active //
@@ -22,3 +49,16 @@ function toggleMenu() {
   menu.classList.toggle("active");
   hamburger.classList.toggle("active");
 }
+/* const cardImages = document.getElementsByClassName("card-image");
+
+function cardimageHoverGrow(event) {
+  event.target.style.transform = "scale(1.05)";
+  event.target.style.transition = "transform 0.3s ease";
+}
+function cardimageHoverReset(event) {
+  event.target.style.transform = "scale(1)";
+}
+
+card.addEventListener("mouseover", cardimageHoverGrow);
+card.addEventListener("mouseout", cardimageHoverReset);
+ */
