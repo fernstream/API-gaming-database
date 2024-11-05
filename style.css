@@ -9,6 +9,8 @@
 @font-face {
   font-family: "CinzelDecorative-Regular.ttf";
   src: url("Fonts/Cinzel_Decorative,Cormorant,Iceland,Major_Mono_Display,Markazi_Text,etc/Iceland/Iceland-Regular.ttf");
+  font-family: "Oswald-VariableFont_wght";
+  src: url("Fonts/Cinzel_Decorative,Cormorant,Iceland,Major_Mono_Display,Markazi_Text,etc/Oswald/Oswald-VariableFont_wght.ttf");
 }
 
 /* */
@@ -107,30 +109,45 @@ body {
 .hero-container {
   background: linear-gradient(45deg, #91919125, #000000);
   background-blend-mode: color-burn;
+  text-align: center;
 }
-.hero-container .h1 {
-  font-family: "CinzelDecorative-Regular.ttf";
+.hero-container h1 {
+  font-family: Oswald-VariableFont_wght;
 }
-/* Game Container Card Styling */
 
+.hero-container p {
+  font-size: 1.2rem;
+}
+
+/* Game Container Card Styling */
+.card-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 .game-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 15px;
 }
 
 .card {
+  max-width: 720px;
+  height: 50vh;
+  margin: 0px 0px 80px 0px;
+  border-radius: 2px 2px;
+
   background-color: #ffffff;
   background-size: cover;
   background-repeat: no-repeat;
-  max-width: 100%;
-
-  height: 65vh;
-  margin: 0px 0px 80px 0px;
-  border-radius: 2px 2px;
   color: #000000;
   box-sizing: border-box;
+}
+
+.title-container {
+  height: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 .game-name {
@@ -141,15 +158,53 @@ body {
 }
 .game-image {
   width: 100%;
-  max-width: 100%;
+  max-width: 550px;
+  height: 250px;
   padding: 20px;
-  height: auto;
   flex: auto;
-  object-fit: cover;
-  border-radius: 15px;
+  object-fit: contain;
+  border-radius: 35px;
 }
 
 .card p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #333333;
+  font-family: Oswald-VariableFont_wght;
+}
+
+/* Footer Section Styling */
+footer {
+  font-family: Oswald-VariableFont_wght;
+}
+#footer-title {
+  font-family: "Major Mono Display", monospace;
+  font-weight: 800;
+  font-weight: bold;
+  font-size: 2em;
+}
+footer p {
+  color: rgb(198, 188, 188);
+}
+
+@media (min-width: 768px) {
+  .game-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 80px;
+  }
+  .game-name {
+    font-size: 2.5rem;
+  }
+  .card {
+    max-width: 100%;
+    height: 60vh;
+  }
+  .hero-container p {
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: 1200px) {
+    .game-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
 }

@@ -2,13 +2,13 @@ const apiKey = "059a654028274c3fae60d5570f66f862";
 /* Min API-nyckel sparad i konstanten 'apiKey' */
 
 async function fetchFeaturedGames() {
-  const url = `https://api.rawg.io/api/games?key=${apiKey}&page_size=5&ordering=-id`;
+  const url = `https://api.rawg.io/api/games?key=${apiKey}&page_size=39&ordering=-id`;
   try {
     const response = await fetch(url);
     const data = await response.json();
     const games = data.results;
 
-    const featuredContainer = document.getElementById("featured-games");
+    const gameContainer = document.querySelector(".game-container");
     const gameTemplate = document.getElementById("game-template");
 
     games.forEach((game) => {
@@ -17,7 +17,7 @@ async function fetchFeaturedGames() {
       gameCard.style.display = "block";
       gameCard.removeAttribute("id"); // Tar bort ID-attributet för klonen eftersom ID:n ska vara unika
 
-      // Fyller data i klonade element
+      // Fyller data i klonade elementen
       gameCard.querySelector(".game-name").textContent = game.name;
       gameCard.querySelector(".game-image").src = game.background_image;
       gameCard.querySelector(".game-image").alt = game.name;
@@ -31,8 +31,13 @@ async function fetchFeaturedGames() {
         ".game-release"
       ).textContent = `Release date: ${game.released}`;
 
+      /* Skapa en lyssnare som hämtar mer information när användare trycker på ett spel /*
+
+  /*     gameCard.addEventListener("click", () => {
+      }); */
+
       // Lägger till klonen i container-elementet
-      featuredContainer.appendChild(gameCard);
+      gameContainer.appendChild(gameCard);
     });
   } catch (error) {
     console.error("Fel vid hämtning av utvalda spel:", error);
