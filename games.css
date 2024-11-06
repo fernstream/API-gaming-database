@@ -18,6 +18,7 @@ body {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   background-color: #000000f2;
   color: #ffffff;
+
   /*   background-image: url("images/playstation_neon_pinkblue.jpg");
   background-repeat: no-repeat;
   background-size: contain;
@@ -27,11 +28,19 @@ body {
 
 .navbar {
   display: flex;
+  position: sticky;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   padding: 10px;
-  background-color: #ffffff;
-  color: #000000;
+  color: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled {
+  position: fixed;
+  background-color: #000000;
+  z-index: 2;
 }
 
 .navbar-logo {
@@ -42,12 +51,13 @@ body {
 
   font-size: 2em;
   text-decoration: none;
-  color: #000000;
+  color: #ffffff;
   text-shadow: 1px 1px 1px rgba(14, 55, 72, 0.456);
 }
 
 .menu {
   list-style-type: none;
+  display: inline-block;
   flex-direction: column;
   align-items: center;
   gap: 0;
@@ -59,17 +69,8 @@ body {
   width: 0;
   overflow: hidden;
   transition: width 0.3s ease-in-out;
-  border: solid 2px #fff;
-  z-index: 1;
   background: linear-gradient(to top, rgba(255, 255, 255, 0.058), #000000),
     url("images/Footer_Dualshock.webp") no-repeat bottom/cover;
-
-  /*   background-color: #060707ca;
-  background-image: url("images/Footer_Dualshock.webp");
-  background-repeat: no-repeat;
-  background-size: 100vh;
-  background-position: bottom;
-  background-blend-mode: color-dodge; */
 }
 
 .menu.active {
@@ -78,23 +79,13 @@ body {
   padding: 20px;
   position: fixed;
   z-index: 1;
-  /*   display: flex;
-  align-items: center; */
+  display: inline-block;
 }
 .menu a {
   text-decoration: none;
   color: #ffff;
   font-size: 1.7rem;
   font-family: Oswald-VariableFont_wght;
-}
-.close-icon {
-  display: none;
-  font-size: 2.5rem;
-  color: #ffffff;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
 }
 
 .menu li {
@@ -104,22 +95,20 @@ body {
 .menu li a.active,
 .menu li a:hover,
 .close-icon:hover {
-  display: inline-block;
+  /*   display: inline-block;
+ */
   transform: scale(1.1);
   text-shadow: 0 0 10px #187fc4, 0 0 20px #3d95dd, 0 0 30px #61aee0,
     0 0 40px #1f6b9f, 0 0 50px #144566, 0 0 60px #67a6db, 0 0 70px #144566;
   transition: ease-in-out 0.1s;
 }
 
-.menu.active + .hamburger .close-icon {
-  display: block;
-}
-
 .menu.active + .hamburger .bar1,
 .menu.active + .hamburger .bar2,
 .menu.active + .hamburger .bar3 {
-  display: none;
+  display: block;
 }
+
 /* Hamburger meny stil */
 
 .hamburger {
@@ -132,7 +121,7 @@ body {
 .hamburger div {
   width: 35px;
   height: 3px;
-  background-color: #000000;
+  background-color: #ffffff;
   margin: 4px;
   transition: 0.3s;
 }
@@ -158,6 +147,7 @@ body {
   background-position: center;
   height: 50vh;
   margin-bottom: 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 .hero-container h1 {
   font-family: Oswald-VariableFont_wght;
@@ -181,15 +171,22 @@ body {
 
 .card {
   max-width: 720px;
-  height: 50vh;
+  height: 65vh;
   margin: 0px 0px 80px 0px;
   border-radius: 2px 2px;
 
-  background-color: #ffffff;
+  background-color: #00000000;
   background-size: cover;
   background-repeat: no-repeat;
-  color: #000000;
+  color: #fcfcfc;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
+  border: solid 0.5px rgba(255, 255, 255, 0.216);
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 10px #187fc44f, 0 0 20px #3d95dd85, 0 0 30px #61ade0bb,
+    0 0 40px #1f6c9f90, 0 0 50px #1445667c, 0 0 60px #67a7db12,
+    0 0 70px #1445661c;
 }
 
 .title-container {
@@ -199,10 +196,11 @@ body {
 }
 
 .game-name {
-  color: #000000;
+  color: #e0e3e4;
   font-variant: small-caps;
   font-size: 2rem;
   text-align: center;
+  margin-top: 10px;
 }
 .game-image {
   width: 100%;
@@ -216,13 +214,15 @@ body {
 
 .card p {
   font-size: 1rem;
-  color: #333333;
+  margin-left: 15px;
+  color: #e6e6e7;
   font-family: Oswald-VariableFont_wght;
 }
 
 /* Footer Section Styling */
 footer {
   font-family: Oswald-VariableFont_wght;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   background: linear-gradient(to top, rgba(16, 16, 16, 0.382), #000000),
     url("images/image_blackblue_dualshock.jpg") no-repeat center/cover;
 
@@ -247,11 +247,12 @@ footer p {
     gap: 80px;
   }
   .game-name {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   .card {
     max-width: 100%;
     height: 60vh;
+    /*   max-width: 720px; */
   }
   .hero-container p {
     font-size: 1.5rem;

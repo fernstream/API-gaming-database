@@ -2,7 +2,7 @@ const apiKey = "059a654028274c3fae60d5570f66f862";
 /* Min API-nyckel sparad i konstanten 'apiKey' */
 
 async function fetchFeaturedGames() {
-  const url = `https://api.rawg.io/api/games?key=${apiKey}&page_size=39&ordering=-id`;
+  const url = `https://api.rawg.io/api/games?key=${apiKey}&page_size=2&ordering=-rid`;
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -47,23 +47,21 @@ async function fetchFeaturedGames() {
 fetchFeaturedGames();
 
 // Hamburger Navbar Menu Toggle Function //
-//.classList i kombination med toggle för att switcha active //
+
 function toggleMenu() {
   const menu = document.querySelector(".menu");
   const hamburger = document.querySelector(".hamburger");
   menu.classList.toggle("active");
   hamburger.classList.toggle("active");
 }
-/* const cardImages = document.getElementsByClassName("card-image");
 
-function cardimageHoverGrow(event) {
-  event.target.style.transform = "scale(1.05)";
-  event.target.style.transition = "transform 0.3s ease";
-}
-function cardimageHoverReset(event) {
-  event.target.style.transform = "scale(1)";
-}
+// När användaren scrollar ner på sidan så ska navbaren bli starkare //
 
-card.addEventListener("mouseover", cardimageHoverGrow);
-card.addEventListener("mouseout", cardimageHoverReset);
- */
+window.addEventListener("scroll", () => {
+  const navbar = document.querySelector(".navbar");
+  if (window.scrollY > 50) {
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
+  }
+});
