@@ -62,12 +62,10 @@
       </p>
     </section>
 
-    <!-- Product Gallery Section | First Five Games Sorted By API-ID -->
-    <div id="featured-games"></div>
-
-    <!-- Chart.js -->
-    <div id="chart-container" style="width: 80%; height: 400px">
-      <canvas id="chart-js"></canvas>
+    <!-- Search Bar Section -->
+    <div class="search-container">
+      <input type="text" id="search-bar" placeholder="Search for a game..." />
+      <button id="btn-search" class="btn btn-dark">Search</button>
     </div>
 
     <!-- Game Card Clone Template-->
@@ -88,6 +86,40 @@
         </div>
       </div>
     </section>
+
+    <!-- Chart Section -->
+    <div class="chart-wrapper">
+      <!-- Dropdown Menu Filter Games-->
+      <div class="dropdown">
+        <button
+          class="btn btn-dark dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Sort By
+        </button>
+
+        <!-- Dropdown List-->
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="#">Name A - Z</a></li>
+          <li><a class="dropdown-item" href="#">Release Date - Newest</a></li>
+          <li><a class="dropdown-item" href="#">Release Date - Oldest</a></li>
+          <li>
+            <a class="dropdown-item" href="#">Ratings - Highest First</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Ratings - Lowest First</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Chart JS Section-->
+      <div id="chart-container" style="width: 80%; height: 400px">
+        <canvas id="chart-js"></canvas>
+      </div>
+    </div>
     <!-- Footer Section (Bootstrap) -->
     <footer class="bg-dark text-light py-4">
       <div class="container text-center">
@@ -129,7 +161,7 @@
     <!-- Javascript Boostrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Javascript Document-->
-    <script type="module" src="games.js"></script>
+    <script src="games.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </body>
 </html>

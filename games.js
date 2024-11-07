@@ -73,13 +73,28 @@ async function fetchGames() {
 
 fetchGames();
 
+// Search Bar Functions //
+
+const searchBar = document.getElementById("search-bar");
+const searchButton = document.getElementById("btn-search");
+
+searchButton.addEventListener("click", searchSend);
+
+function searchSend() {}
+const searchValue = searchBar.value;
+if (searchBar.value) {
+  alert("No value entered");
+}
+
 // Hamburger Navbar Menu Toggle Function //
+
 function toggleMenu() {
   const menu = document.querySelector(".menu");
   const hamburger = document.querySelector(".hamburger");
   menu.classList.toggle("active");
   hamburger.classList.toggle("active");
 }
+
 // När användaren scrollar ner på sidan så ska navbaren bli starkare //
 window.addEventListener("scroll", () => {
   const navbar = document.querySelector(".navbar");
