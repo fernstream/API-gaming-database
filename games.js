@@ -16,7 +16,16 @@ async function fetchGames() {
     const gameRatings = games.map((games) => games.rating);
 
     // Chart Javascript //
+
+    Chart.defaults.color = "white";
+    Chart.defaults.font.size = 20;
+    Chart.defaults.font.family = "monospace";
+
     const ctx = document.getElementById("chart-js").getContext("2d");
+
+    const isMobileDevice = window.innerWidth < 768; // For screens less than 768 px
+    const isINdexAxis = isMobileDevice ? "y" : "x";
+    // If isMobileDevice is true, the axis will be y-based, if false it will be x-based //
 
     new Chart(ctx, {
       type: "bar",
@@ -26,16 +35,33 @@ async function fetchGames() {
           {
             label: "Game Ratings",
             data: gameRatings,
-            backgroundColor: "rgba(75, 192, 192, 0.6)",
-            borderColor: "rgba(75, 192, 192, 1)",
+            backgroundColor: "rgba(0, 164, 253, 0.79)",
+            borderColor: "rgba(0, 134, 216, 0.81)",
             borderWidth: 1,
           },
         ],
       },
+
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        color: "white",
+        font: { size: 16 },
+        indexAxis: isINdexAxis,
         scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              color: "white",
+              font: { size: 16 },
+            },
+          },
           y: {
             beginAtZero: true,
+            ticks: {
+              color: "white",
+              font: { size: 16 },
+            },
           },
         },
       },
