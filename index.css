@@ -187,6 +187,10 @@ body {
   box-shadow: 0 0 10px #187fc44f, 0 0 20px #3d95dd85, 0 0 30px #61ade0bb,
     0 0 40px #1f6c9f90, 0 0 50px #1445667c, 0 0 60px #67a7db12,
     0 0 70px #1445661c;
+  transition: transform 0.2s; /* Animation */
+}
+.card:hover {
+  transform: scale(1.1);
 }
 
 .title-container {

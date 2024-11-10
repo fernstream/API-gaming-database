@@ -2,9 +2,9 @@ const apiKey = "059a654028274c3fae60d5570f66f862";
 /* Min API-nyckel sparad i konstanten 'apiKey' */
 
 async function fetchFeaturedGames() {
-  const url = `https://api.rawg.io/api/games?key=${apiKey}&page_size=9&ordering=-rid`;
+  const urlGamesById = `https://api.rawg.io/api/games?key=${apiKey}&page_size=21&ordering=-rid`;
   try {
-    const response = await fetch(url);
+    const response = await fetch(urlGamesById);
     const data = await response.json();
     const games = data.results;
 
@@ -18,8 +18,17 @@ async function fetchFeaturedGames() {
       gameCard.removeAttribute("id"); // Tar bort ID-attributet för klonen eftersom ID:n ska vara unika
 
       // Fyller data i klonade elementen
+
       gameCard.querySelector(".game-name").textContent = game.name;
-      gameCard.querySelector(".game-image").src = game.background_image;
+      const imageElement = gameCard.querySelector(".game-image");
+      if (imageElement) {
+        imageElement.src = game.background_image
+          ? game.background_image
+          : "images/default-image.jpg";
+        imageElement.alt = game.name;
+      } else {
+        console.warn("Image element not found for game:", game.name);
+      }
       gameCard.querySelector(".game-image").alt = game.name;
       gameCard.querySelector(
         ".game-rating"
@@ -30,6 +39,9 @@ async function fetchFeaturedGames() {
       gameCard.querySelector(
         ".game-release"
       ).textContent = `Release date: ${game.released}`;
+
+      const placeholderImage = "images/default-image.jpg";
+      imageElement.src = game.background_image || placeholderImage;
 
       /* Skapa en lyssnare som hämtar mer information när användare trycker på ett spel /*
 

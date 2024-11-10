@@ -16,6 +16,11 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
     <!-- CSS Style Sheet -->
     <link rel="stylesheet" href="index.css" type="text/css" />
 
@@ -48,6 +53,17 @@
       </nav>
     </header>
 
+    <div id="js-preloader" class="js-preloader loaded">
+      <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero-container">
       <h1>Discover Your Next Adventure</h1>
@@ -76,7 +92,10 @@
             src="${game.background_image}"
             alt="${game.name}"
           />
-          <p class="game-rating">Betyg: ${game.rating}</p>
+          <p class="game-rating">
+            <i class="bi bi-star-fill"></i>
+          </p>
+
           <p class="game-meta">Metacritic: ${game.metacritic}</p>
           <p class="game-release">Release date: ${game.released}</p>
         </div>

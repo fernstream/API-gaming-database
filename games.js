@@ -1,53 +1,95 @@
+// Constants
 const apiKey = "059a654028274c3fae60d5570f66f862";
-/* Min API-nyckel sparad i konstanten 'apiKey' */
+let chart; // Define chart variable globally to allow reuse
 
-async function fetchGames() {
-  const url = `https://api.rawg.io/api/games?key=${apiKey}`;
+// Function to fetch game data from API
+async function fetchGames(searchQuery = "") {
+  const url = `https://api.rawg.io/api/games?key=${apiKey}&search=${encodeURIComponent(
+    searchQuery
+  )}`;
   try {
     const response = await fetch(url);
     const data = await response.json();
-    const games = data.results;
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching game data", error);
+    return [];
+  }
+}
 
-    console.log(data);
-    console.log(games);
-    // Hämtar önskad data och skapar nya Arrays med ".map()" -funktionen //
+// Function to fetch and display game data based on search input
+async function searchGame() {
+  const searchInput = document.getElementById("search-bar").value.trim();
+  if (!searchInput) {
+    alert("Please enter a game name to search.");
+    return;
+  }
 
-    const gameTitles = games.map((games) => games.name);
-    const gameRatings = games.map((games) => games.rating);
+  const games = await fetchGames(searchInput);
+  if (games.length > 0) {
+    displayGameCard(games[0]);
+    updateChart(games[0].name, games[0].rating); // Update chart with fetched game
+  } else {
+    alert("No game found. Please try a different name.");
+  }
+}
 
-    // Chart Javascript //
+// Function to display the game card with fetched data
+function displayGameCard(game) {
+  const gameTemplate = document.getElementById("game-template");
+  const gameContainer = document.querySelector(".game-container");
 
-    Chart.defaults.color = "white";
-    Chart.defaults.font.size = 20;
-    Chart.defaults.font.family = "monospace";
+  // Clone gameTemplate and insert game data from user search result
+  const gameCard = gameTemplate.cloneNode(true);
+  gameCard.style.display = "block";
+  gameCard.querySelector(".game-name").textContent = game.name;
+  gameCard.querySelector(".game-image").src = game.background_image;
+  gameCard.querySelector(".game-image").alt = game.name;
+  gameCard.querySelector(".game-rating").textContent = `Rating: ${game.rating}`;
+  gameCard.querySelector(
+    ".game-meta"
+  ).textContent = `Metacritic: ${game.metacritic}`;
+  gameCard.querySelector(
+    ".game-release"
+  ).textContent = `Release date: ${game.released}`;
 
-    const ctx = document.getElementById("chart-js").getContext("2d");
+  // Clone the existing rating form and add it to the game card
+  const originalRatingForm = document.getElementById("rating-form");
+  const ratingFormClone = originalRatingForm.cloneNode(true);
+  ratingFormClone.style.display = "block";
+  ratingFormClone.id = ""; // Remove duplicate ID
 
-    const isMobileDevice = window.innerWidth < 768; // For screens less than 768 px
-    const isINdexAxis = isMobileDevice ? "y" : "x";
-    // If isMobileDevice is true, the axis will be y-based, if false it will be x-based //
+  gameCard.appendChild(ratingFormClone);
+  // Clear previous game cards and append the new one
+  gameContainer.innerHTML = "";
+  gameContainer.appendChild(gameCard);
+}
 
-    new Chart(ctx, {
+// Event listener for the search button
+document.getElementById("btn-search").addEventListener("click", searchGame);
+
+// Function to update the chart after a user rating
+function updateChart(gameName, userRating) {
+  const ctx = document.getElementById("chart-js").getContext("2d");
+
+  if (!chart) {
+    chart = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: gameTitles,
+        labels: [gameName],
         datasets: [
           {
-            label: "Game Ratings",
-            data: gameRatings,
+            label: "User Ratings",
+            data: [userRating],
             backgroundColor: "rgba(0, 164, 253, 0.79)",
             borderColor: "rgba(0, 134, 216, 0.81)",
             borderWidth: 1,
           },
         ],
       },
-
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        color: "white",
-        font: { size: 16 },
-        indexAxis: isINdexAxis,
         scales: {
           x: {
             beginAtZero: true,
@@ -66,34 +108,40 @@ async function fetchGames() {
         },
       },
     });
-  } catch (error) {
-    console.error("Error when trying to fetch games", error);
+  } else {
+    // Update existing chart data
+    chart.data.labels.push(gameName);
+    chart.data.datasets[0].data.push(userRating);
+    chart.update();
   }
 }
 
-fetchGames();
+// Event listener for the rating form
+document.getElementById("rating-form").addEventListener("submit", (event) => {
+  event.preventDefault();
 
-// Search Bar Functions //
+  const userRating = parseFloat(document.getElementById("user-rating").value);
+  const gameName = document.querySelector(".game-name").textContent;
 
-const searchBar = document.getElementById("search-bar");
-const searchButton = document.getElementById("btn-search");
+  if (!gameName) {
+    alert("Please search for a game before submitting a rating.");
+    return;
+  }
 
-searchButton.addEventListener("click", searchSend);
+  if (userRating < 1 || userRating > 5) {
+    alert("Please enter a rating between 1 and 5.");
+    return;
+  }
 
-function searchSend() {}
-const searchValue = searchBar.value;
-if (searchBar.value) {
-  alert("No value entered");
-}
+  updateChart(gameName, userRating);
+});
 
-// Hamburger Navbar Menu Toggle Function //
-
-function toggleMenu() {
-  const menu = document.querySelector(".menu");
-  const hamburger = document.querySelector(".hamburger");
-  menu.classList.toggle("active");
-  hamburger.classList.toggle("active");
-}
+// Function to update the chart based on filtered games
+/* function updateChart(filteredGames) {
+  chart.data.labels = filteredGames.map((game) => game.name);
+  chart.data.datasets[0].data = filteredGames.map((game) => game.rating);
+  chart.update();
+} */
 
 // När användaren scrollar ner på sidan så ska navbaren bli starkare //
 window.addEventListener("scroll", () => {
@@ -104,3 +152,11 @@ window.addEventListener("scroll", () => {
     navbar.classList.remove("scrolled");
   }
 });
+// Hamburger Navbar Menu Toggle Function //
+
+function toggleMenu() {
+  const menu = document.querySelector(".menu");
+  const hamburger = document.querySelector(".hamburger");
+  menu.classList.toggle("active");
+  hamburger.classList.toggle("active");
+}
