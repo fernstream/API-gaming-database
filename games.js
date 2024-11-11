@@ -1,95 +1,44 @@
-// Constants
-const apiKey = "059a654028274c3fae60d5570f66f862";
-let chart; // Define chart variable globally to allow reuse
+const apiKey = "059a654028274c3fae60d5570f66f862"; // My API Key
+let chart; // This makes the chart variable global in my Javascript //
 
-// Function to fetch game data from API
-async function fetchGames(searchQuery = "") {
-  const url = `https://api.rawg.io/api/games?key=${apiKey}&search=${encodeURIComponent(
-    searchQuery
-  )}`;
+// API Data games fetch & Create Chart //
+async function gamesChart() {
+  const url = `https://api.rawg.io/api/games?key=${apiKey}`;
   try {
     const response = await fetch(url);
     const data = await response.json();
-    return data.results;
-  } catch (error) {
-    console.error("Error fetching game data", error);
-    return [];
-  }
-}
+    const games = data.results;
 
-// Function to fetch and display game data based on search input
-async function searchGame() {
-  const searchInput = document.getElementById("search-bar").value.trim();
-  if (!searchInput) {
-    alert("Please enter a game name to search.");
-    return;
-  }
+    // Imported Chart.js - Creating two new arrays with .map () //
+    const ctx = document.getElementById("chart-js").getContext("2d");
+    const gameTitles = games.map((game) => game.name);
+    const gameRatings = games.map((game) => game.rating);
 
-  const games = await fetchGames(searchInput);
-  if (games.length > 0) {
-    displayGameCard(games[0]);
-    updateChart(games[0].name, games[0].rating); // Update chart with fetched game
-  } else {
-    alert("No game found. Please try a different name.");
-  }
-}
+    // Chart style //
+    Chart.defaults.color = "white";
+    Chart.defaults.font.size = 20;
+    Chart.defaults.font.family = "monospace";
 
-// Function to display the game card with fetched data
-function displayGameCard(game) {
-  const gameTemplate = document.getElementById("game-template");
-  const gameContainer = document.querySelector(".game-container");
-
-  // Clone gameTemplate and insert game data from user search result
-  const gameCard = gameTemplate.cloneNode(true);
-  gameCard.style.display = "block";
-  gameCard.querySelector(".game-name").textContent = game.name;
-  gameCard.querySelector(".game-image").src = game.background_image;
-  gameCard.querySelector(".game-image").alt = game.name;
-  gameCard.querySelector(".game-rating").textContent = `Rating: ${game.rating}`;
-  gameCard.querySelector(
-    ".game-meta"
-  ).textContent = `Metacritic: ${game.metacritic}`;
-  gameCard.querySelector(
-    ".game-release"
-  ).textContent = `Release date: ${game.released}`;
-
-  // Clone the existing rating form and add it to the game card
-  const originalRatingForm = document.getElementById("rating-form");
-  const ratingFormClone = originalRatingForm.cloneNode(true);
-  ratingFormClone.style.display = "block";
-  ratingFormClone.id = ""; // Remove duplicate ID
-
-  gameCard.appendChild(ratingFormClone);
-  // Clear previous game cards and append the new one
-  gameContainer.innerHTML = "";
-  gameContainer.appendChild(gameCard);
-}
-
-// Event listener for the search button
-document.getElementById("btn-search").addEventListener("click", searchGame);
-
-// Function to update the chart after a user rating
-function updateChart(gameName, userRating) {
-  const ctx = document.getElementById("chart-js").getContext("2d");
-
-  if (!chart) {
-    chart = new Chart(ctx, {
+    // Chart Structure //
+    const chart = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: [gameName],
+        labels: gameTitles,
         datasets: [
           {
-            label: "User Ratings",
-            data: [userRating],
+            label: "Game Ratings",
+            data: gameRatings,
             backgroundColor: "rgba(0, 164, 253, 0.79)",
             borderColor: "rgba(0, 134, 216, 0.81)",
             borderWidth: 1,
           },
         ],
       },
+      // Adding responsiveness to chart depending on screen sizes //
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        indexAxis: window.innerWidth < 768 ? "y" : "x",
         scales: {
           x: {
             beginAtZero: true,
@@ -102,56 +51,117 @@ function updateChart(gameName, userRating) {
             beginAtZero: true,
             ticks: {
               color: "white",
-              font: { size: 16 },
+              font: { size: 8 },
             },
           },
         },
       },
     });
+    // Pass in game into displayGameCard //
+    displayGameCard(games[0]);
+  } catch (error) {
+    console.error("Error fetching game data", error);
+  }
+}
+gamesChart();
+
+// Fetch games based on user's search result //
+async function fetchSearchedGame(query) {
+  const url = `https://api.rawg.io/api/games?key=${apiKey}&search=${encodeURIComponent(
+    query
+  )}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching game data", error);
+    return [];
+  }
+}
+// The game from user's search in the search bar //
+async function displaySearchedGame() {
+  const searchInput = document.getElementById("search-bar").value.trim();
+  if (!searchInput) {
+    alert("Please enter a game name before searching!");
+    return;
+  }
+
+  const games = await fetchSearchedGame(searchInput);
+  if (games.length > 0) {
+    displayGameCard(games[0]);
   } else {
-    // Update existing chart data
-    chart.data.labels.push(gameName);
-    chart.data.datasets[0].data.push(userRating);
-    chart.update();
+    alert("No game found. Please try again!");
   }
 }
 
-// Event listener for the rating form
-document.getElementById("rating-form").addEventListener("submit", (event) => {
-  event.preventDefault();
+// Function to display the game card with fetched data //
+function displayGameCard(game) {
+  const gameContainer = document.querySelector(".game-container");
 
-  const userRating = parseFloat(document.getElementById("user-rating").value);
-  const gameName = document.querySelector(".game-name").textContent;
+  // Establish Game Elements for the Game Card //
+  const gameNameEl = gameContainer.querySelector(".game-name");
+  const gameImageEl = gameContainer.querySelector(".game-image");
 
-  if (!gameName) {
-    alert("Please search for a game before submitting a rating.");
-    return;
+  const gameRatingEl = gameContainer.querySelector(".game-rating");
+  const gameMetaEl = gameContainer.querySelector(".game-meta");
+  const gameReleaseEl = gameContainer.querySelector(".game-release");
+  const gameUserRatingEl = gameContainer.querySelector(".game-user-rating");
+
+  if (gameNameEl) gameNameEl.textContent = game.name;
+  if (gameImageEl) {
+    gameImageEl.src = game.background_image;
+    gameImageEl.alt = game.name;
+  }
+  if (gameRatingEl)
+    gameRatingEl.innerHTML = `<i class="bi bi-star-fill"></i> Rating: ${game.rating}`;
+  if (gameMetaEl) {
+    gameMetaEl.innerHTML = `<i class="bi bi-bar-chart-fill"></i> Metacritic: ${game.metacritic}`;
+  }
+  if (gameReleaseEl) {
+    gameReleaseEl.innerHTML = `<i class="bi bi-calendar-event-fill"></i> Release date: ${game.released}`;
+  }
+  if (gameUserRatingEl) {
+    gameUserRatingEl.innerHTML = `<i class="bi bi-star-fill"></i> User Rating: Not rated yet`;
+    gameContainer.appendChild(gameUserRatingEl);
   }
 
-  if (userRating < 1 || userRating > 5) {
-    alert("Please enter a rating between 1 and 5.");
-    return;
+  // User Rating Form //
+  let ratingFormContainer = gameContainer.querySelector(
+    ".rating-form-container"
+  );
+  if (!ratingFormContainer) {
+    ratingFormContainer = document.createElement("div");
+    ratingFormContainer.className = "rating-form-container mt-3";
+    ratingFormContainer.innerHTML = `
+     <label for="user-rating" class="form-label"><i class="bi bi-star"></i> Your Rating (1-5):</label>
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" id="user-rating" min="1" max="5" placeholder="Enter your rating">
+          <button class="btn btn-primary" id="submit-rating" type="button">Submit Rating</button>
+        </div>
+      `;
+    gameContainer.appendChild(ratingFormContainer);
   }
+  // Event listener for rating button > submit rating //
+  ratingFormContainer
+    .querySelector("#submit-rating")
+    .addEventListener("click", () => {
+      let userRating = parseFloat(userRatingInput.value);
+      if (userRating >= 1 && userRating <= 5) {
+        if (gameUserRatingEl) {
+          gameUserRatingEl.innerHTML = `<i class="bi bi-star-fill"></i> User Rating: ${userRating}`;
+        }
+        alert(`You rated "${game.name}" with a rating of ${userRating}`);
+      } else {
+        alert("Please enter a rating between 1 and 5!");
+      }
+    });
+}
 
-  updateChart(gameName, userRating);
-});
+document
+  .getElementById("btn-search")
+  .addEventListener("click", displaySearchedGame);
 
-// Function to update the chart based on filtered games
-/* function updateChart(filteredGames) {
-  chart.data.labels = filteredGames.map((game) => game.name);
-  chart.data.datasets[0].data = filteredGames.map((game) => game.rating);
-  chart.update();
-} */
-
-// När användaren scrollar ner på sidan så ska navbaren bli starkare //
-window.addEventListener("scroll", () => {
-  const navbar = document.querySelector(".navbar");
-  if (window.scrollY > 50) {
-    navbar.classList.add("scrolled");
-  } else {
-    navbar.classList.remove("scrolled");
-  }
-});
 // Hamburger Navbar Menu Toggle Function //
 
 function toggleMenu() {
@@ -160,3 +170,14 @@ function toggleMenu() {
   menu.classList.toggle("active");
   hamburger.classList.toggle("active");
 }
+
+// När användaren scrollar ner på sidan så ska navbaren bli starkare //
+
+window.addEventListener("scroll", () => {
+  const navbar = document.querySelector(".navbar");
+  if (window.scrollY > 50) {
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
+  }
+});

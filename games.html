@@ -62,12 +62,21 @@
       </p>
     </section>
 
+
+    <!-- Chart Section -->
+    <div class="chart-wrapper"></div>
+
+    <!-- Chart JS Section-->
+    <div id="chart-container" style="width: 80%; height: 400px">
+      <canvas id="chart-js"></canvas>
+    </div>
+
     <!-- Dropdown Menu | Sort Games Filter-->
     <div class="search-container">
       <div class="dropdown">
 
           <!-- Dropdown Menu List-->
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <!--     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <li><a class="dropdown-item" href="#">Name A - Z</a></li>
             <li><a class="dropdown-item" href="#">Release Date - Newest</a></li>
             <li><a class="dropdown-item" href="#">Release Date - Oldest</a></li>
@@ -78,7 +87,7 @@
               <a class="dropdown-item" href="#">Ratings - Lowest First</a>
             </li>
           </ul>
-        </button>
+        </button> -->
         <!-- Search Bar & Search Button-->
         <input type="text" id="search-bar" placeholder="Search for a game..." />
         <button id="btn-search" class="btn btn-dark"><i class="bi bi-search"></i>
@@ -87,14 +96,14 @@
     </div>
 
      <!-- Form User Rating-->
-    <div class="form-container">
+ <!--    <div class="form-container">
      <form id="rating-form">
       <label for="user-rating"><i class="bi bi-star-fill"></i>
         Your Rating (1-5):</label>
       <input type="number" id="user-rating" min="1" max="5" required />
       <button type="submit">Submit Rating</button>
     </form>
-    </form>
+    </form> -->
 
 
     <!-- Game Card Clone Template-->
@@ -112,6 +121,7 @@
         <p class="game-rating">Betyg: ${game.rating}</p>
         <p class="game-meta">Metacritic: ${game.metacritic}</p>
         <p class="game-release">Release date: ${game.released}</p>
+        <p class=".game-user-rating"">User Rating: </p>
       </div>
     </div>
   </section>
@@ -119,21 +129,14 @@
   </div>
 
     <!-- Sort By Button-->
-    <button
+ <!--    <button
     class="btn btn-dark dropdown-toggle"
     type="button"
     id="dropdownMenuButton"
     data-bs-toggle="dropdown"
     aria-expanded="false"
-  > Sort By </button>
+  > Sort By </button> -->
 
-    <!-- Chart Section -->
-    <div class="chart-wrapper"></div>
-
-    <!-- Chart JS Section-->
-    <div id="chart-container" style="width: 80%; height: 400px">
-      <canvas id="chart-js"></canvas>
-    </div>
 
     <!-- Footer Section (Bootstrap) -->
     <footer class="bg-dark text-light py-4">
