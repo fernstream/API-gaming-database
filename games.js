@@ -79,6 +79,7 @@ async function fetchSearchedGame(query) {
     return [];
   }
 }
+
 // The game from user's search in the search bar //
 async function displaySearchedGame() {
   const searchInput = document.getElementById("search-bar").value.trim();
@@ -95,6 +96,16 @@ async function displaySearchedGame() {
   }
 }
 
+// Array to store user's favorite games //
+let favorites = [];
+
+document.addEventListener("DOMContentLoaded", () => {
+  let savedFavorites = localStorage.getItem("favorites");
+  if (savedFavorites) {
+    favorites = JSON.parse(savedFavorites);
+  }
+});
+
 // Function to display the game card with fetched data //
 function displayGameCard(game) {
   const gameContainer = document.querySelector(".game-container");
@@ -106,7 +117,6 @@ function displayGameCard(game) {
   const gameRatingEl = gameContainer.querySelector(".game-rating");
   const gameMetaEl = gameContainer.querySelector(".game-meta");
   const gameReleaseEl = gameContainer.querySelector(".game-release");
-  const gameUserRatingEl = gameContainer.querySelector(".game-user-rating");
 
   if (gameNameEl) gameNameEl.textContent = game.name;
   if (gameImageEl) {
@@ -121,43 +131,52 @@ function displayGameCard(game) {
   if (gameReleaseEl) {
     gameReleaseEl.innerHTML = `<i class="bi bi-calendar-event-fill"></i> Release date: ${game.released}`;
   }
-  if (gameUserRatingEl) {
-    gameUserRatingEl.innerHTML = `<i class="bi bi-star-fill"></i> User Rating: Not rated yet`;
-    gameContainer.appendChild(gameUserRatingEl);
-  }
 
-  // User Rating Form //
-  let ratingFormContainer = gameContainer.querySelector(
-    ".rating-form-container"
-  );
-  if (!ratingFormContainer) {
-    ratingFormContainer = document.createElement("div");
-    ratingFormContainer.className = "rating-form-container mt-3";
-    ratingFormContainer.innerHTML = `
-     <label for="user-rating" class="form-label"><i class="bi bi-star"></i> Your Rating (1-5):</label>
-        <div class="input-group mb-3">
-          <input type="number" class="form-control" id="user-rating" min="1" max="5" placeholder="Enter your rating">
-          <button class="btn btn-primary" id="submit-rating" type="button">Submit Rating</button>
-        </div>
-      `;
-    gameContainer.appendChild(ratingFormContainer);
-  }
-  // Event listener for rating button > submit rating //
-  ratingFormContainer
-    .querySelector("#submit-rating")
-    .addEventListener("click", () => {
-      let userRating = parseFloat(userRatingInput.value);
-      if (userRating >= 1 && userRating <= 5) {
-        if (gameUserRatingEl) {
-          gameUserRatingEl.innerHTML = `<i class="bi bi-star-fill"></i> User Rating: ${userRating}`;
+  // "Add to favorites" -button added in the bottom of the game card w Bootstrap //
+
+  let favoriteBtn = gameContainer.querySelector(".favorite-btn");
+  if (!favoriteBtn) {
+    favoriteBtn = document.createElement("button");
+    favoriteBtn.className = "btn btn-outline-danger favorite-btn mt-3";
+
+    // Checking if game is already added to favorites and adjust heart to that //
+    let favoriteTrue = favorites.some((fav) => fav.id === game.id);
+    favoriteBtn.innerHTML = favoriteTrue
+      ? `<i class="bi bi-heart-fill"></i> Added to Favorites`
+      : `<i class="bi bi-heart"></i> Add to Favorites`;
+    if (favoriteTrue) {
+      favoriteBtn.classList.add("active");
+    }
+
+    // Event Listener - Favorite Button //
+
+    favoriteBtn.addEventListener("click", () => {
+      favoriteBtn.classList.toggle("active");
+      if (favoriteBtn.classList.contains("active")) {
+        favoriteBtn.innerHTML = `<i class="bi bi-heart-fill"></i> Added to Favorites`;
+        // Push game to 'favorites' if added //
+        if (!favorites.some((fav) => fav.id === game.id)) {
+          favorites.push(game);
         }
-        alert(`You rated "${game.name}" with a rating of ${userRating}`);
-      } else {
-        alert("Please enter a rating between 1 and 5!");
+      } // Else remove game id from favorites //
+      else {
+        favoriteBtn.innerHTML = `<i class="bi bi-heart"></i> Add to Favorites`;
+        favorites = favorites.filter((fav) => fav.id !== game.id);
       }
+      // Save added favorite games to Local Storage //
+      localStorage.setItem("favorites", JSON.stringify(favorites));
     });
+    // Append favorite button to game card //
+    gameContainer.querySelector(".card").appendChild(favoriteBtn);
+  }
 }
-
+// On page load - Load saved favorites from local storage //
+document.addEventListener("DOMContentLoaded", () => {
+  let savedFavorites = localStorage.getItem("favorites");
+  if (savedFavorites) {
+    favorites = JSON.parse(savedFavorites);
+  }
+});
 document
   .getElementById("btn-search")
   .addEventListener("click", displaySearchedGame);
