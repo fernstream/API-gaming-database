@@ -161,6 +161,10 @@ body {
 .card-wrapper {
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 .game-container {
   display: grid;
@@ -217,7 +221,8 @@ body {
 }
 
 .card p {
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1vw + 0.5rem, 1.2rem);
+
   margin-left: 15px;
   color: #e6e6e7;
   font-family: Oswald-VariableFont_wght;

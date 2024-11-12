@@ -71,43 +71,32 @@
       <canvas id="chart-js"></canvas>
     </div>
 
-    <!-- Dropdown Menu | Sort Games Filter-->
-    <div class="search-container">
-      <div class="dropdown">
-
-          <!-- Dropdown Menu List-->
-      <!--     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#">Name A - Z</a></li>
-            <li><a class="dropdown-item" href="#">Release Date - Newest</a></li>
-            <li><a class="dropdown-item" href="#">Release Date - Oldest</a></li>
-            <li>
-              <a class="dropdown-item" href="#">Ratings - Highest First</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Ratings - Lowest First</a>
-            </li>
-          </ul>
-        </button> -->
-        <!-- Search Bar & Search Button-->
-        <input type="text" id="search-bar" placeholder="Search for a game..." />
-        <button id="btn-search" class="btn btn-dark"><i class="bi bi-search"></i>
-          Search</button>
-      </div>
+ <!-- Container for Search Bar and Game Card -->
+<div class="src-gameca-wrapper container my-4">
+  <!-- Search Bar & Search Button -->
+  <div class="search-container mb-4">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        id="search-bar"
+        placeholder="Search for a game..."
+        aria-label="Search for a game"
+        aria-describedby="btn-search"
+      />
+      <button
+        class="btn btn-dark"
+        type="button"
+        id="btn-search"
+        aria-label="Search"
+      >
+        <i class="bi bi-search"></i> Search
+      </button>
     </div>
-
-     <!-- Form User Rating-->
- <!--    <div class="form-container">
-     <form id="rating-form">
-      <label for="user-rating"><i class="bi bi-star-fill"></i>
-        Your Rating (1-5):</label>
-      <input type="number" id="user-rating" min="1" max="5" required />
-      <button type="submit">Submit Rating</button>
-    </form>
-    </form> -->
-
+  </div>
 
     <!-- Game Card Clone Template-->
-   <section class="card-wrapper">
+  <section class="card-wrapper">
     <div class="game-container">
       <div class="card" id="game-template" style="display: block">
         <div class="title-container">
@@ -124,6 +113,7 @@
         <p class=".game-user-rating"">User Rating: </p>
       </div>
     </div>
+  </div>
   </section>
 
   </div>
