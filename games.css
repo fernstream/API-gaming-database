@@ -1,136 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  list-style: none;
-}
-
-@font-face {
-  font-family: "CinzelDecorative-Regular.ttf";
-  src: url("Fonts/Cinzel_Decorative,Cormorant,Iceland,Major_Mono_Display,Markazi_Text,etc/Iceland/Iceland-Regular.ttf");
-  font-family: "Oswald-VariableFont_wght";
-  src: url("Fonts/Cinzel_Decorative,Cormorant,Iceland,Major_Mono_Display,Markazi_Text,etc/Oswald/Oswald-VariableFont_wght.ttf");
-}
-
-/* */
-body {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  background-color: #000000f2;
-  color: #ffffff;
-}
-/* Navbar Styling */
-
-.navbar {
-  display: flex;
-  position: sticky;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 10px;
-  color: #ffffff;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.navbar.scrolled {
-  position: fixed;
-  background-color: #000000;
-  z-index: 2;
-}
-
-.navbar-logo {
-  font-family: "Major Mono Display", monospace;
-  font-weight: 800;
-  font-style: normal;
-  font-weight: bold;
-
-  font-size: 2em;
-  text-decoration: none;
-  color: #ffffff;
-  text-shadow: 1px 1px 1px rgba(14, 55, 72, 0.456);
-}
-
-.menu {
-  list-style-type: none;
-  display: inline-block;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  padding: 0;
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: 0;
-  overflow: hidden;
-  transition: width 0.3s ease-in-out;
-  background: linear-gradient(to top, rgba(255, 255, 255, 0.058), #000000),
-    url("images/Footer_Dualshock.webp") no-repeat bottom/cover;
-}
-
-.menu.active {
-  width: 250px;
-  gap: 20px;
-  padding: 20px;
-  position: fixed;
-  z-index: 1;
-  display: inline-block;
-}
-.menu a {
-  text-decoration: none;
-  color: #ffff;
-  font-size: 1.7rem;
-  font-family: Oswald-VariableFont_wght;
-}
-
-.menu li {
-  margin-bottom: 25px;
-}
-
-.menu li a.active,
-.menu li a:hover,
-.close-icon:hover {
-  /*   display: inline-block;
- */
-  transform: scale(1.1);
-  text-shadow: 0 0 10px #187fc4, 0 0 20px #3d95dd, 0 0 30px #61aee0,
-    0 0 40px #1f6b9f, 0 0 50px #144566, 0 0 60px #67a6db, 0 0 70px #144566;
-  transition: ease-in-out 0.1s;
-}
-
-.menu.active + .hamburger .bar1,
-.menu.active + .hamburger .bar2,
-.menu.active + .hamburger .bar3 {
-  display: block;
-}
-
-/* Hamburger meny stil */
-
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.hamburger div {
-  width: 35px;
-  height: 3px;
-  background-color: #ffffff;
-  margin: 4px;
-  transition: 0.3s;
-}
-
-.hamburger.active .bar1 {
-  transform: rotate(-45deg) translate(-5px, 6px);
-}
-.hamburger.active .bar1 {
-  opacity: 0;
-}
-
-.hamburger.active .bar3 {
-  transform: rotate(45deg) translate(-5px, -6px);
-}
+/* CSS Styling för games.html */
 
 .hero-container {
   background: linear-gradient(45deg, #91919125, #000000);
@@ -155,23 +23,44 @@ body {
 }
 
 /* Chart Styling */
+
+#load-more {
+  background-color: rgb(58, 58, 58);
+  margin: 0 auto 20px;
+  font-family: "Courier New", Courier, monospace;
+
+}
+
+#load-more:hover {
+  background-color: rgba(62, 61, 61, 0.205);
+  transform: scale(1.05);
+  text-shadow: 0 0 10px #187fc4, 0 0 20px #3d95dd, 0 0 30px #61aee0,
+    0 0 40px #1f6b9f, 0 0 50px #144566, 0 0 60px #67a6db, 0 0 70px #144566;
+  transition: ease-in-out 0.1s;
+}
+
 canvas {
   display: block;
   justify-content: center;
   max-width: 100%;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: auto;
   margin: 0 auto;
 }
 .chart-wrapper {
   display: block;
-  max-width: 95%;
+  max-width: 100%;
+  width: 95%;
   margin: 0 auto 20px;
 }
 #chart-container {
-  width: 80vw;
-  height: 50vw;
-  margin: 0 auto 5%;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+
+  width: 100%;
+  height: auto;
+  margin: 0 auto 25%;
 
   background-color: #00000000;
   background-size: cover;
@@ -182,6 +71,7 @@ canvas {
   border: solid 0.5px rgba(255, 255, 255, 0.216);
   border-radius: 12px;
 }
+/* Search Container Styling */
 .src-gameca-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -218,6 +108,7 @@ canvas {
 }
 
 #btn-search {
+  background-color: rgb(58, 58, 58);
   flex: 1;
   font-family: "Courier New", Courier, monospace;
   font-weight: 500;
@@ -226,21 +117,22 @@ canvas {
   border-radius: 0 4px 4px 0;
   border: 1px solid #ddd;
   border-left: none;
+  z-index: 0;
 }
 
+#btn-search:hover {
+  background-color: rgba(62, 61, 61, 0.205);
+  transform: scale(1.05);
+  text-shadow: 0 0 10px #187fc4, 0 0 20px #3d95dd, 0 0 30px #61aee0,
+    0 0 40px #1f6b9f, 0 0 50px #144566, 0 0 60px #67a6db, 0 0 70px #144566;
+  transition: ease-in-out 0.1s;
+}
   #search-bar,
   #btn-search {
     width: 100%;
     margin-bottom: 10px;
     border-radius: 4px;
   }
-
-.dropdown {
-  font-family: "Courier New", Courier, monospace;
-  font-weight: 500;
-  font-size: 15px;
-  width: 30%;
-}
 
 /* Game Container Card Styling */
 .card-wrapper {
@@ -283,19 +175,13 @@ canvas {
 .card:hover {
   transform: scale(1.1);
   transition: 0.3s;
+  background-color: #71717125;
 }
-
-.game-image:hover {
-  transform: scale(1.1);
-  transition: 0.3s;
-}
-
 .card .title-container {
   font-size: 1.2rem;
   margin-bottom: 10px;
   text-align: center;
 }
-
 .game-name {
   color: #e0e3e4;
   font-variant: small-caps;
@@ -313,7 +199,6 @@ canvas {
   border-radius: 35px;
   border: solid 2px rgba(97, 93, 93, 0.208);
 }
-
 .card p {
   font-size: clamp(0.8rem, 1.5vw + .5rem,
   1.5rem);
@@ -329,42 +214,27 @@ canvas {
   margin-top: 10px;
 }
 
-
-/* Footer Section Styling */
-footer {
-  font-family: Oswald-VariableFont_wght;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(to top, rgba(16, 16, 16, 0.382), #000000),
-    url("images/image_blackblue_dualshock.jpg") no-repeat center/cover;
-  bottom: 0;
-}
-#footer-title {
-  font-family: "Major Mono Display", monospace;
-  font-weight: 800;
-  font-weight: bold;
-  font-size: 2em;
-}
-footer p {
-  color: rgb(198, 188, 188);
-}
-
 /* Media Query for Smaller Screens */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1400px) {
   .src-gameca-wrapper {
     flex-direction: column;
     align-items: center; /}
     .search-container {
       flex-direction: column; /* Stack search bar and button vertically */
       max-width: 90%; /* Adjust to fit smaller screens */
-      padding: 0;
-    }
+    }}
 
 @media (min-width: 768px) {
   .search-container {
     font-size: 15px;
-    /*     justify-content: start;
- */ /*     max-width: 90%;
- */
+  }
+  .menu.active {
+    width: 450px;
+  }
+
+
+  #btn-search {
+    font-size: 1rem;
   }
 
   .hero-container p {
@@ -372,13 +242,6 @@ footer p {
   }
 
   #chart-container {
-    margin-top: 8%;
+    margin: 0 auto 5%;
   }
-
-  @media (min-width: 1200px) {
-    /*    .game-container {
-      grid-template-columns: repeat(3, 1fr);
-    } */
-  }
-}
 }

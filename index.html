@@ -22,6 +22,7 @@
     />
 
     <!-- CSS Style Sheet -->
+    <link rel="stylesheet" href="common.css" type="text/css" />
     <link rel="stylesheet" href="index.css" type="text/css" />
 
     <!-- Font Style From Google -->
@@ -37,12 +38,44 @@
     <header>
       <nav class="navbar">
         <a href="index.html" class="navbar-logo"> Kyro Games</a>
+
         <ul class="menu">
           <li><a href="index.html">Home</a></li>
           <li><a href="games.html">Games</a></li>
-          <li><a href="favorites.html">Favorites</a></li>
-          <li><a href="#">Support</a></li>
-          <li><a href="#">About</a></li>
+          <li>
+            <a href="https://www.linkedin.com/in/oliverfernstrom/">About</a>
+          </li>
+
+<!-- Sign in / Sign out User field-->
+            <!-- Username field -->
+            <div class="mb-3">
+              <label for="usernameInput" class="form-label">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                id="usernameInput"
+                placeholder="Enter your username"
+              />
+            <!-- Password field -->
+            <div class="mb-3">
+              <label for="passwordInput" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="passwordInput"
+                placeholder="Enter your password"
+              />
+            </div>
+            <!-- Sign in & Sign up Buttons-->
+             <div class="signButtons-container">
+            <div id="welcomeMessage"></div>
+            <button id="authButton" type="button" class="btn btn-outline-light">
+              <i class="fas fa-power-off"></i> Log In
+            </button>
+            <button id="signUpButton" type="button" class="btn btn-outline-warning" onclick="window.location.href='signup.html'">
+              <i class="fas fa-power-off"></i> Sign up
+            </button>
+          </div>
         </ul>
         <!-- Hamburger-->
         <div class="hamburger" onclick="toggleMenu()">
@@ -85,22 +118,58 @@
       <div class="game-container">
         <div class="card" id="game-template" style="display: none">
           <div class="title-container">
-            <h3 class="game-name">${game.name}</h3>
+            <h3 class="game-name"></h3>
           </div>
-          <img
-            class="game-image"
-            src="${game.background_image}"
-            alt="${game.name}"
-          />
+          <img class="game-image" alt="game_image"/>
           <p class="game-rating">
             <i class="bi bi-star-fill"></i>
           </p>
 
-          <p class="game-meta">Metacritic: ${game.metacritic}</p>
-          <p class="game-release">Release date: ${game.released}</p>
+          <p class="game-meta"></p>
+          <p class="game-release"></p>
         </div>
       </div>
     </section>
+    <!-- Load More Games knapp-->
+    <button
+      id="load-more-button"
+      class="btn btn-dark btn-lg mt-3"
+      style="display: none"
+    >
+      Load More Games
+    </button>
+    <!-- Loading animation, hämtad från CodePen -->
+    <div class="load-animation-container">
+      <div id="loading-animation" style="display: none">
+        <div class="loader">
+          <svg viewBox="0 0 80 80">
+            <circle id="test" cx="40" cy="40" r="32"></circle>
+          </svg>
+        </div>
+
+        <div class="loader triangle">
+          <svg viewBox="0 0 86 80">
+            <polygon points="43 8 79 72 7 72"></polygon>
+          </svg>
+        </div>
+
+        <div class="loader">
+          <svg viewBox="0 0 80 80">
+            <rect x="8" y="8" width="64" height="64"></rect>
+          </svg>
+        </div>
+
+        <!-- dribbble -->
+        <a
+          class="dribbble"
+          href="https://dribbble.com/shots/5878367-Loaders"
+          target="_blank"
+          ><img
+            src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg"
+            alt=""
+        /></a>
+      </div>
+    </div>
     <!-- Footer Section (Bootstrap) -->
     <footer class="bg-dark text-light py-4">
       <div class="container text-center">
@@ -117,9 +186,13 @@
             <ul class="list-unstyled">
               <li><a href="index.html" class="text-light">Home</a></li>
               <li><a href="games.html" class="text-light">Games</a></li>
-              <li><a href="favorites.html" class="text-light">Favorites</a></li>
-              <li><a href="#" class="text-light">Support</a></li>
-              <li><a href="#" class="text-light">About</a></li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/oliverfernstrom/"
+                  class="text-light"
+                  >About</a
+                >
+              </li>
             </ul>
           </div>
           <div class="col-md-4 mb-3">
@@ -143,6 +216,7 @@
 
     <!-- Javascript-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="common.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

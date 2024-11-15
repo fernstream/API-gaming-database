@@ -1,141 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  list-style: none;
-}
-
-@font-face {
-  font-family: "CinzelDecorative-Regular.ttf";
-  src: url("Fonts/Cinzel_Decorative,Cormorant,Iceland,Major_Mono_Display,Markazi_Text,etc/Iceland/Iceland-Regular.ttf");
-  font-family: "Oswald-VariableFont_wght";
-  src: url("Fonts/Cinzel_Decorative,Cormorant,Iceland,Major_Mono_Display,Markazi_Text,etc/Oswald/Oswald-VariableFont_wght.ttf");
-}
-
-/* */
-body {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  background-color: #000000f2;
-  color: #ffffff;
-
-  /*   background-image: url("images/playstation_neon_pinkblue.jpg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center; */
-}
-/* Navbar Styling */
-
-.navbar {
-  display: flex;
-  position: sticky;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 10px;
-  color: #ffffff;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.navbar.scrolled {
-  position: fixed;
-  background-color: #000000;
-  z-index: 2;
-}
-
-.navbar-logo {
-  font-family: "Major Mono Display", monospace;
-  font-weight: 800;
-  font-style: normal;
-  font-weight: bold;
-
-  font-size: 2em;
-  text-decoration: none;
-  color: #ffffff;
-  text-shadow: 1px 1px 1px rgba(14, 55, 72, 0.456);
-}
-
-.menu {
-  list-style-type: none;
-  display: inline-block;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  padding: 0;
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: 0;
-  overflow: hidden;
-  transition: width 0.3s ease-in-out;
-  background: linear-gradient(to top, rgba(255, 255, 255, 0.058), #000000),
-    url("images/Footer_Dualshock.webp") no-repeat bottom/cover;
-}
-
-.menu.active {
-  width: 250px;
-  gap: 20px;
-  padding: 20px;
-  position: fixed;
-  z-index: 1;
-  display: inline-block;
-}
-.menu a {
-  text-decoration: none;
-  color: #ffff;
-  font-size: 1.7rem;
-  font-family: Oswald-VariableFont_wght;
-}
-
-.menu li {
-  margin-bottom: 25px;
-}
-
-.menu li a.active,
-.menu li a:hover,
-.close-icon:hover {
-  /*   display: inline-block;
- */
-  transform: scale(1.1);
-  text-shadow: 0 0 10px #187fc4, 0 0 20px #3d95dd, 0 0 30px #61aee0,
-    0 0 40px #1f6b9f, 0 0 50px #144566, 0 0 60px #67a6db, 0 0 70px #144566;
-  transition: ease-in-out 0.1s;
-}
-
-.menu.active + .hamburger .bar1,
-.menu.active + .hamburger .bar2,
-.menu.active + .hamburger .bar3 {
-  display: block;
-}
-
-/* Hamburger meny stil */
-
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.hamburger div {
-  width: 35px;
-  height: 3px;
-  background-color: #ffffff;
-  margin: 4px;
-  transition: 0.3s;
-}
-
-.hamburger.active .bar1 {
-  transform: rotate(-45deg) translate(-5px, 6px);
-}
-.hamburger.active .bar1 {
-  opacity: 0;
-}
-
-.hamburger.active .bar3 {
-  transform: rotate(45deg) translate(-5px, -6px);
-}
+/* CSS Styling för index.html */
 
 .hero-container {
   background: linear-gradient(45deg, #91919125, #000000);
@@ -148,6 +11,11 @@ body {
   height: 50vh;
   margin-bottom: 30px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.navbar-logo:hover {
+  text-shadow: 0 0 10px #187fc4, 0 0 20px #3d95dd, 0 0 30px #61aee0,
+    0 0 40px #1f6b9f, 0 0 50px #144566, 0 0 60px #67a6db, 0 0 70px #144566;
+  transition: ease-in-out 0.1s;
 }
 .hero-container h1 {
   font-family: Oswald-VariableFont_wght;
@@ -195,6 +63,7 @@ body {
 }
 .card:hover {
   transform: scale(1.1);
+  background-color: #71717125;
 }
 
 .title-container {
@@ -222,32 +91,9 @@ body {
 
 .card p {
   font-size: clamp(0.9rem, 1vw + 0.5rem, 1.2rem);
-
   margin-left: 15px;
   color: #e6e6e7;
   font-family: Oswald-VariableFont_wght;
-}
-
-/* Footer Section Styling */
-footer {
-  font-family: Oswald-VariableFont_wght;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(to top, rgba(16, 16, 16, 0.382), #000000),
-    url("images/image_blackblue_dualshock.jpg") no-repeat center/cover;
-
-  /*  background-image: url("images/keyboard.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center; */
-}
-#footer-title {
-  font-family: "Major Mono Display", monospace;
-  font-weight: 800;
-  font-weight: bold;
-  font-size: 2em;
-}
-footer p {
-  color: rgb(198, 188, 188);
 }
 
 @media (min-width: 768px) {
@@ -265,6 +111,9 @@ footer p {
   }
   .hero-container p {
     font-size: 1.5rem;
+  }
+  .menu.active {
+    width: 450px;
   }
 
   @media (min-width: 1200px) {
