@@ -1,7 +1,6 @@
 // Javascript shared between the pages //
 
 // Hamburger Navbar Menu Toggle Function //
-
 function toggleMenu() {
   const menu = document.querySelector(".menu");
   const hamburger = document.querySelector(".hamburger");
